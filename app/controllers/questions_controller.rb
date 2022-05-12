@@ -4,13 +4,24 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.create(question_params)
 
-    redirect_to question_path(@question), notice: 'Новый вопрос создан!'
+    if @question.save
+
+      redirect_to question_path(@question), notice: 'Новый вопрос создан!'
+    else
+      flash.now[:alert] = 'Вы неправильно заполнили поля формы вопроса'
+
+      render :new
+    end
   end
 
   def update
-    @question.update(question_params)
+    if @question.update(question_params)
 
-    redirect_to question_path(@question), notice: 'Обновили вопрос!'
+      redirect_to question_path(@question), notice: 'Обновили вопрос!'
+    else
+      flash.now[:alert] = 'При попытке сохранить вопрос возникли ошибки'
+      render :edit
+    end
   end
 
   def destroy
