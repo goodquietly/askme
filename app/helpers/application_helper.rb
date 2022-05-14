@@ -9,4 +9,10 @@ module ApplicationHelper
       many
     end
   end
+
+  def navbar_color_now
+    return '#370617' unless current_user.present?
+
+    current_user.navbar_color
+  end
 end

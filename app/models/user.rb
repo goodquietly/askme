@@ -1,13 +1,15 @@
 class User < ApplicationRecord
   has_secure_password
 
-  before_validation :downcase_nickname
+  before_save :downcase_nickname
 
   validates :email, presence: true, uniqueness: true,
-                    format: { with: /\A[\w\d\-]+@[\w\d\-]+\.\w+\z/i }
+                    format: { with: /\A[\w\-.]+@[\w\-]+\.[a-z]+\z/i }
 
   validates :nickname, presence: true, uniqueness: true, length: { maximum: 40 },
-                       format: { with: /\A[\w\d]+\z/i }
+                       format: { with: /\A\w+\z/i }
+
+  validates :navbar_color, format: { with: /\A#[a-f0-9]{6}\z/i }
 
   private
 
