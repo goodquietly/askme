@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true, length: { maximum: 40 },
                        format: { with: /\A\w+\z/i }
 
-  validates :navbar_color, format: { with: /\A#[a-f0-9]{6}\z/i }
+  validates :navbar_color, format: { with: /\A#[[:xdigit:]]{6}\z/ }
 
   private
 
