@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   validates :navbar_color, format: { with: /\A#[[:xdigit:]]{6}\z/ }
 
+  has_many :questions, dependent: :delete_all
+
   private
 
   def downcase_nickname
