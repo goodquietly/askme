@@ -1,4 +1,3 @@
-  
   <div class="mb-sm">
     <%= simple_format h(question.body) %>
   </div>
@@ -11,7 +10,15 @@
 
   <div class="text-sm question-footer">
     <div class="text-grey">
-      <%= l(question.created_at, format: :short) %>
+      <p><%= l(question.created_at, format: :short) %>
+        Вопрос от:
+        <% if question.author.present?%>
+          <%= link_to "#{display_nickname(question.author)}", 
+                  user_path(question.author), class: 'mr-sm' %>
+        <%else%>
+          Анонимного пользователя
+        <%end%>
+      </p>
     </div>
 
     <% if question.user == current_user %>
