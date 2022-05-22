@@ -38,13 +38,13 @@ class QuestionsController < ApplicationController
     redirect_to user_path(@user), notice: 'Вопрос удалён!'
   end
 
-  def shows
+  def show
     @question = Question.find(params[:id])
   end
 
   def index
-    @question = Question.new
-    @questions = Question.all
+    @questions = Question.order(created_at: :desc).last(10)
+    @users = User.order(created_at: :desc).last(10)
   end
 
   def new
