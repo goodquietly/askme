@@ -21,8 +21,8 @@
       </p>
     </div>
 
-    <% if question.user == current_user %>
-      <div>
+    <div>
+      <% if question.user == current_user %>
         <% unless question.hidden? %>
           <%= button_to fa_icon('eye-slash'), hide_question_path(question), method: :put, 
           title: 'Скрыть вопрос' %>
@@ -30,9 +30,11 @@
         <% edit_icon = (question.answer.present? ? 'pencil' : 'reply') %>
 
         <%= link_to fa_icon(edit_icon), edit_question_path(question), title: 'Изменить вопрос', class: 'mr-sm' %>
-        <%= link_to fa_icon('list'), questions_path, title: 'Все вопросы' %>
+
         <%= button_to fa_icon('trash-o'), question_path(question), method: :delete, 
         title: 'Удалить вопрос', form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
-      </div>
-    <% end %>
+      <% end %>
+      <%= link_to fa_icon('list'), questions_path, title: 'Все вопросы' %>
+    </div>
+
   </div>
