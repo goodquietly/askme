@@ -7,10 +7,12 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', require: false
 gem 'font-awesome-rails'
 gem 'gravtastic'
+gem 'dotenv-rails'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.4'
+gem "recaptcha"
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
