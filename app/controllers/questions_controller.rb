@@ -5,11 +5,11 @@ class QuestionsController < ApplicationController
   def create
     question_params = params.require(:question).permit(:body, :user_id)
 
-    @question = Question.create(question_params)
+    @question = Question.new(question_params)
 
     @question.author = current_user
 
-    if @question.save
+    if check_captcha(@question) && @question.save
 
       redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
     else
@@ -61,6 +61,10 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def check_captcha(model)
+    current_user.present? || verify_recaptcha(model: model)
+  end
 
   def ensure_current_user
     redirect_with_alert unless current_user.present?
