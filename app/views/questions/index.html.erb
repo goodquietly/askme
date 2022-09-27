@@ -5,19 +5,27 @@
     </h2>
 
     <div class="users-box">
+
       <% @users.each do |user| %>
         <%= render partial: 'users/user_avatar', locals: {user: user} %>
       <% end %>
+      
     </div>
   </div>
 
-  <div class="mt-sm container">
-    <% @hashtags.each do |hashtag| %>
+  <% if @hashtags.any? %> 
+    <div class="mt-sm container">
       <p class="text-sm">
-      <%= link_to hashtag.name, hashtag_path(hashtag) %>
-    <% end %>
+   
+        <% @hashtags.each do |hashtag| %>
+          <b class="text-red">
+            <%= link_to hashtag.name, hashtag_path(hashtag) %>
+          </b>
+        <% end %>
+
       </p>  
-  </div>
+    </div>
+  <% end %>
 
   <div class="container mt">
     <h2 class="title-lg">

@@ -8,6 +8,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     @question.author = current_user
+
     if @question.save && check_captcha(@question)
       question_hashtags = @question.body.scan(/#[[:word:]-]+/)
 
