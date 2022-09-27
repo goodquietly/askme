@@ -8,8 +8,12 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     @question.author = current_user
+    if @question.save && check_captcha(@question)
+      question_hashtags = @question.body.scan(/#[[:word:]-]+/)
 
-    if check_captcha(@question) && @question.save
+      question_hashtags.each do |tag|
+        @question.hashtags << Hashtag.find_or_create_by(name: tag)
+      end
 
       redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
     else
@@ -43,8 +47,9 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.order(created_at: :desc).last(10)
+    @questions = Question.order(created_at: :desc).first(15)
     @users = User.order(created_at: :desc).last(10)
+    @hashtags = Hashtag.all.limit(10)
   end
 
   def new
