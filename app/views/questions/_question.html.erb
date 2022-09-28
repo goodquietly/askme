@@ -17,11 +17,11 @@
           <%= link_to "#{display_nickname(question.author)}", 
                   user_path(question.author), class: 'mr-sm' %>
         <%else%>
-          Анонимного пользователя |
+          Анонимного пользователя
         <%end%>
-        
+        |
         <% question.hashtags.each do |hashtag| %>
-          <b class="text-red"><%= hashtag.name %></b>
+          <b class="text-red"><%= link_to hashtag.name, hashtag_path(hashtag) %></b>
         <% end %>
       </p>
     </div>

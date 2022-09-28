@@ -10,11 +10,6 @@ class QuestionsController < ApplicationController
     @question.author = current_user
 
     if @question.save && check_captcha(@question)
-      question_hashtags = @question.body.scan(/#[[:word:]-]+/)
-
-      question_hashtags.each do |tag|
-        @question.hashtags << Hashtag.find_or_create_by(name: tag)
-      end
 
       redirect_to user_path(@question.user), notice: 'Новый вопрос создан!'
     else
@@ -32,6 +27,7 @@ class QuestionsController < ApplicationController
       redirect_to user_path(@question.user), notice: 'Обновили вопрос!'
     else
       flash.now[:alert] = 'При попытке сохранить вопрос возникли ошибки'
+
       render :edit
     end
   end
@@ -50,7 +46,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).first(15)
     @users = User.order(created_at: :desc).last(10)
-    @hashtags = Hashtag.all.limit(10)
+    @hashtags = QuestionHashtag.popular_hashtad_ids.map { |id| Hashtag.find(id) }.first(10)
   end
 
   def new
