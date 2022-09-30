@@ -1,5 +1,5 @@
   <div class="mb-sm">
-    <%= simple_format h(question.body) %>
+    <%= simple_format h(body_with_link_hashtag(question)) %>
   </div>
 
   <% if question.answer.present? %>
@@ -19,10 +19,6 @@
         <%else%>
           Анонимного пользователя
         <%end%>
-        |
-        <% question.hashtags.each do |hashtag| %>
-          <b class="text-red"><%= link_to hashtag.name, hashtag_path(hashtag) %></b>
-        <% end %>
       </p>
     </div>
 
