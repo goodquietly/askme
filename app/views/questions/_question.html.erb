@@ -1,10 +1,11 @@
   <div class="mb-sm">
-    <%= simple_format h(body_with_link_hashtag(question)) %>
+    <%= text_with_link_hashtag(question.hashtags, question.body) %>
   </div>
 
   <% if question.answer.present? %>
+    <div class="text-sm text-grey">Ответ:</div>
     <div class="mb-sm text-dark-red">
-      <%= question.answer %>
+      <%= text_with_link_hashtag(question.hashtags, question.answer) %>
     </div>
   <% end %>
 

@@ -46,6 +46,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.order(created_at: :desc).first(15)
     @users = User.order(created_at: :desc).last(10)
+    @top_answered_users = Question.most_answered_users_ids.map { |id| User.find(id) }.first(5)
     @hashtags = QuestionHashtag.popular_hashtad_ids.map { |id| Hashtag.find(id) }.first(10)
   end
 

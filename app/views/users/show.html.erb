@@ -13,7 +13,9 @@
     <% end %>
 
     <p class="text-bold mt mb-lg">@<%= @user.nickname %></p>
+
   </div>
+
   <% if @questions.any? %>
     <div class="container">
       <%= link_to 'Спроси меня', new_question_path(user_id: @user.nickname),
@@ -26,10 +28,25 @@
 
     <div class="container mt-sm">
       <h2 class="title-lg">
-        <%= @questions.count %>
-        <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
+        <% if @answered_questions.present?%>
+          Ответил на <%= @answered_questions.count %> 
+          <%= inclination(@answered_questions.count, 'вопрос', 'вопроса', 'вопросов') %>
+          из <%= @questions.count %>
+        <% else %>
+          Вопросы без ответа:
+        <% end %>
       </h2>
     </div>
+
+    <% if current_user == @user && @unanswered_questions.present? %>
+      <div class="container mt-sm">
+        <h2 class="title-lg text-dark-red">
+          Осталось ответить на 
+          <%= @unanswered_questions.count %>
+          <%= inclination(@unanswered_questions.count, 'вопрос!', 'вопроса!', 'вопросов!') %>
+        </h2>
+      </div>
+    <% end %>
 
     <% @questions.each do |question| %>
       <div class="mt-sm container">

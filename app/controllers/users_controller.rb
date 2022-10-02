@@ -51,6 +51,8 @@ class UsersController < ApplicationController
   def show
     @questions = @user.questions.order(created_at: :desc)
     @question = Question.new(user: @user)
+    @unanswered_questions = @questions.select { |m| m.answer.nil? }
+    @answered_questions = @questions.select { |m| !m.answer.nil? }
   end
 
   private

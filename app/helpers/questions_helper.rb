@@ -1,9 +1,9 @@
 module QuestionsHelper
-  def body_with_link_hashtag(question)
-    question.hashtags.each do |tag|
-      question.body.gsub!(/#{tag.name}/) { |name| link_to name, hashtag_path(tag) }
+  def text_with_link_hashtag(hashtags, text)
+    hashtags.each do |tag|
+      text.gsub!(/#{tag.name}/) { |name| link_to name, hashtag_path(tag) }
     end
 
-    sanitize question.body
+    simple_format(text)
   end
 end
