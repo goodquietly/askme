@@ -1,28 +1,41 @@
-  
-  <div class="container">
-    <h2 class="title-lg mb">
-      ТОП 5 отвечающих
-    </h2>
+  <% if @users.any? %> 
+    <div class="container">
+      
+      <% if @top_answered_users.any? %> 
+        <h2 class="title-lg mb">
+          ТОП 5 отвечающих
+        </h2>
+        <div class="users-box">
 
-    <div class="users-box">
-
-      <% @top_answered_users.each do |user| %>
-        <%= render partial: 'users/user_avatar', locals: {user: user} %>
+          <% @top_answered_users.each do |user| %>
+          <%= render partial: 'users/user_avatar', locals: {user: user} %>
+          <% end %>
+      
+        </div>
       <% end %>
       
-    </div>
-    <h2 class="title-lg mb">
-      Недавно добавились
-    </h2>
+      <h2 class="title-lg mb">
+        Недавно добавились
+      </h2>
+      <div class="users-box">
 
-    <div class="users-box">
-
-      <% @users.each do |user| %>
-        <%= render partial: 'users/user_avatar', locals: {user: user} %>
-      <% end %>
+        <% @users.each do |user| %>
+          <%= render partial: 'users/user_avatar', locals: {user: user} %>
+        <% end %>
       
+      </div>
     </div>
-  </div>
+  <% else %>
+    <div class="container text-center">
+      <p class="title-sm text-grey">
+        Некого спрашивать:( Скорее регистрируйся!
+      </p>
+
+      <div class="mt-lg mb-lg fa-5x text-light-grey">
+        <%= fa_stacked_icon 'users', base: 'square-o' %>
+      </div>    
+    </div>  
+  <% end %>
 
   <% if @hashtags.any? %> 
     <div class="mt-sm container">
@@ -38,20 +51,22 @@
     </div>
   <% end %>
 
-  <div class="container mt">
-    <h2 class="title-lg">
-      <%= inclination(@questions.count, 'Последний', 'Последние', 'Последние') %>
-      <%= @questions.count %>
-      <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
-    </h2>
-  </div>
-
-  <% @questions.each do |question| %>
-    <div class="mt-sm container">
-      <p class="mb text-sm text-grey">
-        Вопрос <%= link_to "##{question.id}", question_path(question) %>
-        для юзера <%= link_to "@#{question.user.nickname}", user_path(question.user) %>
-      </p>
-      <%= render question %>
+  <% if @questions.any? %> 
+    <div class="container mt">
+      <h2 class="title-lg">
+        <%= inclination(@questions.count, 'Последний', 'Последние', 'Последние') %>
+        <%= @questions.count %>
+        <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
+      </h2>
     </div>
+
+    <% @questions.each do |question| %>
+      <div class="mt-sm container">
+        <p class="mb text-sm text-grey">
+          Вопрос <%= link_to "##{question.id}", question_path(question) %>
+          для юзера <%= link_to "@#{question.user.nickname}", user_path(question.user) %>
+        </p>
+        <%= render question %>
+      </div>
+    <% end %>
   <% end %>
