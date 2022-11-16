@@ -42,7 +42,7 @@ gem install bundler
 git clone https://github.com/goodquietly/askme.git
 ```
 
-Находясь в папке с игрой `cd askme`, установите бибилиотеки:
+Находясь в папке с игрой `cd askme`, установите библиотеки:
 
 ```
 bundle install
