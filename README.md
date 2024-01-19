@@ -79,5 +79,3 @@ bundle exec rails s
 ```
 http://localhost:3000
 ```
-
-Посмотреть работу приложения на [HEROKU](https://askmegp.herokuapp.com/)
